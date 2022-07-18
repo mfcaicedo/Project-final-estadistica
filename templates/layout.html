@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="static/src/styles.css">
+    {% assets 'css' %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+</head>
+<body>
+    <header> 
+
+        <div class="contenedor contenido-header">
+
+            <a href="./index">Estadística</a>
+
+            <div class="contenido-navegacion">
+                <nav class="navegacion">
+                    <a href="./index">Indice</a>
+                    <a href="./busqueda">Resultados</a>
+                    <a href="./reservar">Nosotros</a>
+
+                </nav>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    {% block body %}
+
+    {% endblock %}
+
+    <footer class=" contenido-footer">
+        <div class="footer">
+            <p class="copyright text-center text-lg">Todos los derechos reservados - 2022 &copy; </p>
+        </div>
+    </footer>
+    
+
+</body>
+</html>
