@@ -47,3 +47,37 @@ for i in lista_valores:
     print(i)
 
 print(f"valores del diccionario: {diccionario}")
+
+"""
+print("valores digitaodos Ni: ")
+    for j in lista_Ni:
+      print(j)   
+      
+    print("valores digitaodos Fi: ")
+    for j in lista_Fi:
+      print(j)  
+        
+    print("valores digitaodos fi: ")
+    for j in lista_fi:
+       print(j)
+       
+    print("valores digitaodos ni: ")
+    for j in lista_ni:
+        print(j)
+     
+    print("valores digitaodos li-1: ")
+    for j in lista_Li_1:
+        print(j)
+
+    print("valores digitaodos li: ")
+    for j in lista_Li:
+        print(j)
+    
+    print("valores digitaodos Xi: ")
+    for j in lista_Xi:
+       print(j)  
+       
+    print("valores densidad fi*: ")
+    for j in lista_densidad:
+       print(j) 
+"""  
