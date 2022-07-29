@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.2/chart.min.js" integrity="sha512-zjlf0U0eJmSo1Le4/zcZI51ks5SjuQXkU0yOdsOBubjSmio9iCUp8XPLkEAADZNBdR9crRy3cniZ65LF2w8sRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="static/src/styles.css">
     {% assets 'css' %}
@@ -15,14 +16,13 @@
 
         <div class="contenedor contenido-header">
 
-            <a href="./index">Estadística</a>
+            <a href="./index" class="font-bold text-lg">Estadística</a>
 
             <div class="contenido-navegacion">
-                <nav class="navegacion">
-                    <a href="./index">Indice</a>
-                    <a href="./busqueda">Resultados</a>
-                    <a href="./reservar">Nosotros</a>
-
+                <nav class="navegacion pt-2">
+                    <a href="./" class="font-bold text-lg">Indice</a>
+                    <a href="./result" class="font-bold text-lg">Resultados</a>
+                    <a href="/" class="font-bold text-lg">Nosotros</a>
                 </nav>
             </div>
 
@@ -35,9 +35,13 @@
 
     {% endblock %}
 
-    <footer class=" contenido-footer">
+    {% block javascript %}
+
+    {% endblock %}
+
+    <footer class=" contenido-footer p-2" style="background-color: #3666A7;">
         <div class="footer">
-            <p class="copyright text-center text-lg">Todos los derechos reservados - 2022 &copy; </p>
+            <p class="copyright text-center text-base text-white p-2">Todos los derechos reservados - 2022 &copy; </p>
         </div>
     </footer>
     

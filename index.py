@@ -1,5 +1,5 @@
 from cmath import sqrt
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Blueprint, Flask, render_template, request, redirect, url_for
 from flask_assets import Bundle, Environment
 from math import log
 import math
@@ -13,16 +13,24 @@ css = Bundle("src/main.css", output="dist/main.css")
 assets.register("css", css)
 css.build()
 
+# array_data = Blueprint('array_data', __name__)
+
 @app.route("/")
 def index():
     # return "<h1>Hola mundo Erika</h1>"
     return render_template('index.html')
+
+@app.route('/result')
+def busqueda():
+    return render_template('result.html')
+
 
 @app.route('/procesar_datos', methods=['POST'])
 def procesar_datos():
     #AQUI RECUPERO LA INFORMACIÓN QUE SE MANDA DESDE EL FORMULARIO QUE SE ENCUENTRA EN EL index.html
     #AQUI VA EL CODIGO PARA PROCESAR LOS DATOS	 
     response = request.form
+    print(f"response: {response}")
     array_data, lista_Li_1, lista_Li, lista_Xi =  [],[],[],[]
     lista_ni, lista_fi, lista_Fi, lista_Ni, lista_densidad = [],[],[],[],[]
     #listas para los datos discretos
@@ -31,15 +39,23 @@ def procesar_datos():
     
     array_data = response['datos'].split(',')
     print(f"que imprime: {array_data}") #imprime el array (pueden mirarlo en la consola)
+    
     float_array_data=[]
     for item in array_data:
         float_array_data.append(float(item))
         
+    print(f"discreto {response['discreto']}")
+    discretos = response['discreto']
+    # constinuos = response['continuo']
+        
+    if discretos == "on":
+        print("entro al if del discretos")
+        
     listaOrdenada = sorted(float_array_data)           
     #Se encuentra el mayor y menor valor que del array
-    numMayor = mayor_de_arreglo(float_array_data)+0.05
+    numMayor = mayor_de_arreglo(float_array_data) + 0.05
     print("num mayor: ",numMayor)
-    numMenor = menor_de_arreglo(float_array_data)-0.05
+    numMenor = menor_de_arreglo(float_array_data) - 0.05
     print("num menor: ",numMenor)
     #Cantidad de elementos ingresados
     n = len(float_array_data)
@@ -66,10 +82,22 @@ def procesar_datos():
     #LLenar la lista correspondiente a la funcion empirica de densidad(fi*)
     llenar_lista_densidad(lista_fi, lista_densidad, m, c)
     
+    
+    # return render_template('result.html',lista_Li_1=lista_Li_1, lista_Li=lista_Li, 
+    #                         lista_Xi=lista_Xi, lista_ni=lista_ni, lista_fi=lista_fi, 
+    #                         lista_Fi=lista_Fi, lista_Ni=lista_Ni, lista_densidad=lista_densidad, c=c)
+    
+    
     #agregar a un diccionario 
     for i in range(m):
-        list = [lista_Li_1[i], lista_Li[i], lista_Xi[i], lista_ni[i], lista_fi[i], lista_Ni[i], lista_Fi[i], lista_densidad[i]]
-        diccionarioDatosContinuos[i+1] = list         
+        list = [lista_Li_1[i], lista_Li[i], lista_Xi[i], lista_ni[i], lista_fi[i],
+                lista_Ni[i], lista_Fi[i], lista_densidad[i]]
+        
+        diccionarioDatosContinuos[i+1] = list    
+        
+        
+        
+             
      
     #VALORES CONTINUOS   
     media = media_datos_continuos(diccionarioDatosContinuos, n)
@@ -99,6 +127,7 @@ def procesar_datos():
     print(f"lista elementos: {listaOrdenada}")    
     media_dis = media_datos_discretos(listaOrdenada)
     print("media: ",media_dis)
+    print(f"lista ordenada: {listaOrdenada}")
     mediana_dis = mediana_datos_discretos(listaOrdenada)
     print("mediana: ",mediana_dis)
     varianza_dis = varianza_datos_discretos(listaOrdenada, media_dis)
@@ -108,8 +137,18 @@ def procesar_datos():
     coef_variacion_dis = (desviacionEstandar_dis/media_dis)*100
     print("coeficiente de variacion: ",coef_variacion_dis)
     moda_datos_discretos(listaOrdenada)
-       
-    return redirect(url_for('index')) #redirijo a la pagina index.html pierdan cuidado con esta linea de código
+    print("lista elementos: ",lista_Li_1)
+    print("diccionarioDatosContinuos: ",diccionarioDatosContinuos) 
+    length_list = len(lista_Li_1)
+    c = round(c,4)
+    
+    # return render_template('result.html', diccionarioDatosDiscretos=diccionarioDatosDiscretos, 
+    #                     c=c, length_list=length_list,)
+    return render_template('result.html', lista_Li_1=lista_Li_1, lista_Li=lista_Li, 
+                            lista_Xi=lista_Xi, lista_ni=lista_ni, lista_fi=lista_fi, 
+                            lista_Ni=lista_Ni, lista_Fi=lista_Fi, lista_densidad=lista_densidad,
+                            c=c, length_list=length_list)
+    # return redirect(url_for('index')) #redirijo a la pagina index.html pierdan cuidado con esta linea de código
 
 #FUNCIONES DE USO GENERAL
 def mayor_de_arreglo(arreglo):
@@ -238,9 +277,12 @@ def mediana_datos_discretos(lista):
     tam = len(lista)
     if(tam % 2 == 0):
         mitad = tam/2
-        mediana = (lista[mitad]+ lista[mitad+1])/2
+        mitad = int(mitad)
+        print("mitad: ", mitad)
+        mediana = (lista[mitad - 1] + lista[mitad])/2
+        print("midiana: ", mediana)
     else:
-        mitad = (tam//2)+1
+        mitad = (tam // 2)+1
         mediana = lista[mitad]
     return mediana
     

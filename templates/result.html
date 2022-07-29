@@ -1,0 +1,153 @@
+{% extends './layout.html' %}
+{% block title %}Eventos{% endblock %}
+
+{% block body %}
+
+
+<div class="contenedor">
+    <h1 class="text-3xl text-center font-bold m-2 p-2 text-blue-400">Resultados</h1>
+    <div class="p-4">
+        <p> que imprime {{ lista_Li_1 }}</p>
+        <!-- Tabla de frecuencias y Medidas de tendencia central -->
+        <div class="flex flex-auto gap-2  justify-around p-3">
+            <div class="">
+                <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Tabla de frecuencias</h3>
+                <table class="table-auto w-full text-center">
+                    <thead class="p-4">
+                        <tr class="" style="background-color: #3666A7;">
+                            <th class="px-5 py-3 text-2xl text-white">Ci</th>
+                            <th class="px-5 py-3 text-2xl text-white">Li-1</th>
+                            <th class="px-5 py-3 text-2xl text-white">Li</th>
+                            <th class="px-5 py-3 text-2xl text-white">Xi</th>
+                            <th class="px-5 py-3 text-2xl text-white">ni</th>
+                            <th class="px-5 py-3 text-2xl text-white">fi</th>
+                            <th class="px-5 py-3 text-2xl text-white">Ni</th>
+                            <th class="px-5 py-3 text-2xl text-white">Fi</th>
+                            <th class="px-5 py-3 text-2xl text-white">fi*</th>
+                        </tr>
+                    </thead>
+                    <tbody class="" >
+                        {% for i in range(0, length_list) %}
+
+                            <tr class="bg-blue-100">
+                                <td class="p-2">{{c}}</td>
+                                <td class="p-2">{{lista_Li_1[i]}}</td>
+                                <td class="p-2">{{lista_Li[i]}}</td>
+                                <td class="p-2">{{lista_Xi[i]}}</td>
+                                <td class="p-2">{{lista_ni[i]}}</td>
+                                <td class="p-2">{{lista_fi[i]}}</td>
+                                <td class="p-2">{{lista_Ni[i]}}</td>
+                                <td class="p-2">{{lista_Fi[i]}}</td>
+                                <td class="p-2">{{lista_densidad[i]}}</td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="">
+                <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Medidas de tendencia central</h3>
+                <table class="table-auto w-full">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2">Media</th>
+                            <th class="px-4 py-2">Mediana</th>
+                            <th class="px-4 py-2">Moda</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- <td class="border px-4 py-2">{{ frecuencia }}</td>
+                            <td class="border px-4 py-2">{{ medida_tendencia_central }}</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- Indicadores de dispersión y  gráfica -->
+        <div class="flex flex-auto gap-2  justify-around p-3">
+            <div class="">
+                <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Indicadores de dispersión</h3>
+                <table class="table-auto w-full">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-4 py-2">Varianza</th>
+                            <th class="px-4 py-2">Desviación Estandar</th>
+                            <th class="px-4 py-2">Coef. Variación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- <td class="border px-4 py-2">{{ frecuencia }}</td>
+                            <td class="border px-4 py-2">{{ medida_tendencia_central }}</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="p-2">
+                <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Polígono de frecuencias</h3>
+
+                <!-- GRÁFICA DEL POLIGINO DE FRECUENCIAS -->
+                <div class="p-1">
+                    <canvas id="myChart" width="300" height="300"></canvas>
+                    <!-- <canvas id="myChart" width="400" height="400"></canvas> -->
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Script para crear el gráfico -->
+{% block javascript %}
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: {{ lista_Xi }},
+            datasets: [{
+                label: 'Frecuencia',
+                //data: [8, 10, 3, 5, 2, 3],
+                data: {{ lista_densidad }},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
+
+{% endblock %}
+
