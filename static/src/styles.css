@@ -50,6 +50,11 @@ header{
     box-shadow: 11px 7px 33px -9px rgba(0,0,0,0.7);
 
 }
+.contenedor-form{
+    -webkit-box-shadow: 11px 11px 9px 3px rgba(171, 165, 185, 0.74);
+    -moz-box-shadow: 11px 11px 9px 3px rgba(171, 165, 185, 0.74);
+    box-shadow: 11px 11px 9px 3px rgba(171, 165, 185, 0.74);
+}
 .contenido-header{
     display: flex;
     text-align: center;

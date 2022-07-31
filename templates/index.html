@@ -2,57 +2,60 @@
 {% block title %}Eventos{% endblock %}
 
 {% block body %}
-
-<div class="contenedor">
-    <h1 class="text-3xl text-center font-bold m-2">Calculadora de Estadística</h1>
-    <div class="">
-        <h4 class="text-2xl font-bold mb-2">Estadistica descriptiva</h4>
-        <form action="/procesar_datos" class="" method="POST">
-            <div class="flex flex-wrap -mx-3 mb-6 bg-gray-200 border-2 p-3">
-                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="block tracking-wide  text-lg font-bold mb-2" for="grid-first-name">
-                        ¿Los datos son discretos o continuos?
-                    </label>
-                    <div>
-                        <input  
-                        class="bg-gray-200 hover:bg-gray-300 cursor-pointer 
-                        w-5 h-5 border-3 border-amber-500 focus:outline-none rounded-lg" 
-                        id="discreto"
-                        name="discreto"
-                        required 
-                        type="checkbox">
-                        <label for="discreto" class="">Discretos</label>
-                    </div>
-                    <div>
-                        <input  
-                        class="bg-gray-200 hover:bg-gray-300 cursor-pointer 
-                        w-5 h-5 border-3 border-amber-500 focus:outline-none rounded-lg" 
-                        id="continuo" 
-                        name="continuo"
-                        required
-                        type="checkbox">
-                        <label for="continuo" class="w-full">Continuos</label>
-                    </div>
-                    <div>
-                    <label class="mt-3 block tracking-wide  text-lg font-bold mb-2" for="grid-last-name">
-                        Ingrese los datos:
-                    </label>
-                    <input class="appearance-none block w-full bg-white text-gray-900 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-                    id="datos" type="text" 
-                    name="datos"
-                    placeholder="Ejemplo: 1,2,3,4,5,6,...">
-                    <p class="mt-2 mb-2">Cuando termine de ingresar los datos haga click en el botón <span class="font-bold">Calcular</span></p>
-                    <button class="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
-                    type="submit">
-                    Calcular
-                    </button>
+<div class="contenedor bg-slate-300 m-0 p-0 w-full">
+    <div class="pt-10 lg:pl-32 lg:pr-32 pb-10 bg-slate-300">
+        <h1 class="text-3xl text-center font-bold m-2 font-serif" style="color:#3666A7">Calculadora de Estadística</h1>
+        <div class="p-2 sm:p-32 sm:pt-0 sm:pb-0">
+            <form action="/procesar_datos" class="" method="POST">
+                <div class="contenedor-form mb-6 bg-slate-800 rounded-2xl border-collapse p-3">
+                    <div class="w-auto px-3 mb-6 md:mb-0">
+                    <h4 class="text-2xl font-bold mb-2 font-serif text-white">Estadistica descriptiva</h4>
+                        <label class="block tracking-wide  text-lg text-white font-bold mb-2" for="">
+                            ¿Los datos son discretos o continuos?
+                        </label>    
+                        <div>
+                            <input  
+                            class="bg-gray-200 hover:bg-gray-300 cursor-pointer 
+                            w-6 h-5 border-3 focus:outline-none rounded-lg" 
+                            name="tipo"
+                            required 
+                            value="discretos"
+                            type="radio">
+                            <label for="tipo" class="text-white font-bold">Discretos</label>
+                        </div>
+                        <div>
+                            <input  
+                            class="bg-gray-200 hover:bg-gray-300 cursor-pointer 
+                            w-6 h-5  focus:outline-none rounded-lg" 
+                            name="tipo"
+                            required
+                            value="continuos"
+                            type="radio">
+                            <label for="tipo" class="w-full text-white font-bold">Continuos</label>
+                        </div>
+                        <div>
+                        <label class="mt-3 block tracking-wide text-white text-lg font-bold mb-2" for="grid-last-name">
+                            Ingrese los datos seguidos de una coma (,):
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-500 text-gray-800 border border-gray-400 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500" 
+                        id="datos" type="text" 
+                        name="datos"
+                        placeholder="Ejemplo: 1,2,3,4,5,6,...">
+                        <p class="mt-2 mb-2 text-gray-400">Cuando termine de ingresar los datos haga click en el botón <span class="font-bold" style="color:#3666A7">Calcular</span></p>
+                        <div class="text-center">
+                            <button class="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+                            type="submit">
+                            Calcular
+                            </button>    
+                        </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+
+
     </div>
-
-
 </div>
 
 {% endblock %}
