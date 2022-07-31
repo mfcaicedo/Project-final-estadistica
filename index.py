@@ -16,8 +16,6 @@ css = Bundle("src/main.css", output="dist/main.css")
 assets.register("css", css)
 css.build()
 
-# array_data = Blueprint('array_data', __name__)
-
 @app.route("/")
 def index():
     # return "<h1>Hola mundo Erika</h1>"
@@ -40,20 +38,17 @@ def procesar_datos():
     diccionarioDatosContinuos, diccionarioDatosDiscretos = {}, {}
     
     array_data = response['datos'].split(',')
-    print(f"que imprime: {array_data}") #imprime el array (pueden mirarlo en la consola)
     
     float_array_data=[]
     for item in array_data:
         float_array_data.append(float(item))
         
-    print(f"tipo que imprime {response['tipo']}")
     tipo_datos = response['tipo']
         
     #Ordenamos la lista 
     listaOrdenada = sorted(float_array_data)           
 
     if tipo_datos == "continuos":
-        print("PROCESO DEL LOS DATOS CONTINUOS ")
             
         validacion = False
         for i in listaOrdenada:
@@ -139,18 +134,11 @@ def procesar_datos():
         for i in range(len(lista_elem_dis)):
             list = [lista_elem_dis[i], lista_frec_abs[i], lista_frec_rel[i], lista_Ni_dis[i], lista_Fi_dis[i]]
             diccionarioDatosDiscretos[i+1] = list 
-        print(f"lista elementos: {listaOrdenada}")    
         media_dis = media_datos_discretos(listaOrdenada)
-        print("media: ",media_dis)
-        print(f"lista ordenada: {listaOrdenada}")
         mediana_dis = mediana_datos_discretos(listaOrdenada)
-        print("mediana: ",mediana_dis)
         varianza_dis = varianza_datos_discretos(listaOrdenada, media_dis)
-        print("varianza: ",varianza_dis)
         desviacionEstandar_dis = math.sqrt(varianza_dis)
-        print("desviacion estandar: ",desviacionEstandar_dis)
         coef_variacion_dis = (desviacionEstandar_dis/media_dis)*100
-        print("coeficiente de variacion: ",coef_variacion_dis)
         lista_modas_dis = []
         lista_modas_dis = moda_datos_discretos(lista_frec_abs, lista_elem_dis)
         length_list = len(lista_Li_1)
@@ -218,7 +206,7 @@ def llenar_lista_Ni(lista_ni, lista_Ni, m):
         niAnterior = lista_Ni[i]
         niSiguiente = lista_ni[i+1]
         nuevoValor = niAnterior + niSiguiente
-        lista_Ni.append(nuevoValor)
+        lista_Ni.append(round(nuevoValor, 3))
         
 def llenar_lista_Fi(lista_fi, lista_Fi, m):
     lista_Fi.append(lista_fi[0])
@@ -240,6 +228,15 @@ def media_datos_continuos(diccionarioDatContinuos, n):
     return media
    
 def mediana_datos_continuos(diccionarioDatosContinuos, c):
+    """_summary_ mediana de datos continuos
+
+    Args:
+        diccionarioDatosContinuos (_type_): diccionario de datos continuos
+        c (float): ancho
+
+    Returns:
+        float: mediana de datos continuos
+    """
     mediana = 0
     indice = 0
     for key in diccionarioDatosContinuos:
@@ -255,11 +252,20 @@ def mediana_datos_continuos(diccionarioDatosContinuos, c):
     return mediana
 
 def moda_datos_continuos(diccionarioDatosContinuos, c, lista_ni):
+    """_summary_ moda de datos continuos
+
+    Args:
+        diccionarioDatosContinuos (float): diccionario de datos continuos
+        c (float): ancho
+        lista_ni (int): lista de los valores de la frecuencia absoluta (ni)
+
+    Returns:
+        float: Lista de modas de datos continuos
+    """
     moda = 0
     lista_modas = []
     #saquemos el mayor de la lista del los ni 
     mayor_ni = mayor_de_arreglo(lista_ni)
-    print("num mayor de mayor_ni: ", mayor_ni)
     
     #verifico que no hayan mas de una moda 
     for i in range(0, len(lista_ni)): 
@@ -268,7 +274,7 @@ def moda_datos_continuos(diccionarioDatosContinuos, c, lista_ni):
             #calculo la moda 
             #primero saco el li-1 
             li_1 = diccionarioDatosContinuos[i+1][0]
-            print(f"li_1: {li_1}")
+            #calculo la moda
             moda = ((mayor_ni- lista_ni[i-1])/ ((mayor_ni - lista_ni[i-1]) + 
                     (mayor_ni - lista_ni[i+1]) )) * c + li_1
             lista_modas.append(round(moda, 3))
@@ -276,6 +282,16 @@ def moda_datos_continuos(diccionarioDatosContinuos, c, lista_ni):
     return lista_modas
 
 def varianza_datos_continuos(diccionarioDatosContinuos, n, media):
+    """_summary_ varianza de datos continuos
+
+    Args:
+        diccionarioDatosContinuos (float): diccionario de datos continuos
+        n (int): cantidad de datos
+        media (float): media de los datos
+
+    Returns:
+        float: varianza de datos continuos
+    """
     varianza = 0
     for key in diccionarioDatosContinuos:
         varianza += (((diccionarioDatosContinuos[key][2]-media)**2)*diccionarioDatosContinuos[key][3])/n
@@ -283,10 +299,17 @@ def varianza_datos_continuos(diccionarioDatosContinuos, n, media):
 
 #FUNCIONES PARA DATOS DISCRETOS
 def frec_absolutas_discreta(listaOrdenada, lista_elem_dis, lista_frec_abs, lista_frec_rel):
+    """_summary_ frecuencia absoluta de datos discretos
+
+    Args:
+        listaOrdenada (int): lista ordenada de datos discretos
+        lista_elem_dis (_type_): lista de elementos discretos
+        lista_frec_abs (_type_): lista de frecuencias absolutas
+        lista_frec_rel (_type_): lista de frecuencias relativas
+    """
     fi = 0
     n = len(listaOrdenada)
     cont = 1
-    #[1 1 2 2 3 3 4 4]
     i = listaOrdenada[0]
     for j in range(len(listaOrdenada)):
         if (j<(len(listaOrdenada)-1)) and (listaOrdenada[j] == listaOrdenada[j+1]):
@@ -298,15 +321,28 @@ def frec_absolutas_discreta(listaOrdenada, lista_elem_dis, lista_frec_abs, lista
             lista_frec_abs.append(cont)
             #Llenar la lista correspondiente a las frecuencias relativas(fi)
             fi = cont/n
-            lista_frec_rel.append(fi) 
+            lista_frec_rel.append(round(fi, 3)) 
             cont =1
 
 #Calculo de la media para datos discretos
 def media_datos_discretos(lista):
+    """_summary_ media de datos discretos
+
+    Returns:
+        float: media de datos discretos
+    """
     media = sum(lista)/len(lista)
     return media
 #Calculo de la mediana para datos discretos
 def mediana_datos_discretos(lista):
+    """_summary_ mediana de datos discretos
+
+    Args:
+        lista (int): lista de datos discretos
+
+    Returns:
+        float: mediana de datos discretos
+    """
     tam = len(lista)
     if(tam % 2 == 0):
         mitad = tam/2
@@ -320,16 +356,31 @@ def mediana_datos_discretos(lista):
     return mediana
     
 def varianza_datos_discretos(lista, media):
+    """_summary_ varianza de datos discretos
+
+    Args:
+        lista (int): lista de datos discretos
+        media (float): media de datos discretos
+
+    Returns:
+        float: varianza de datos discretos
+    """
     tam = len(lista)
     varianza = 0
     for i in range(len(lista)):
         varianza += (((lista[i]-media)**2))/tam
     return varianza    
-     
+    
 def moda_datos_discretos(lista_ni, lista_xi):
-    # counter = Counter(lista)
-    # primero,segundo, *_,last = counter.most_common()
-    # print(primero, segundo)
+    """_summary_ moda de datos discretos
+
+    Args:
+        lista_ni (int): lista de los valores de la frecuencia absoluta (ni)
+        lista_xi (int): lista de los datos xi
+
+    Returns:
+        float: Lista de modas de datos discretos
+    """
     moda = 0
     lista_modas = []
     #saquemos el mayor de la lista del los ni 
@@ -341,7 +392,6 @@ def moda_datos_discretos(lista_ni, lista_xi):
             moda = lista_xi[i]
             lista_modas.append(moda)
     return lista_modas
-    
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

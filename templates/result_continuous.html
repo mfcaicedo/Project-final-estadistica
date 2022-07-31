@@ -4,15 +4,15 @@
 {% block body %}
 
 <div class="contenedor bg-slate-300 w-full">
-    <h1 class="text-3xl text-center font-bold m-2 p-2 pt-0" style="color: #3666A7;">Resultados datos continuos</h1>
+    <h1 class="text-3xl uppercase text-center font-bold m-2 p-2 pt-0" style="color: #3666A7;">Resultados datos continuos</h1>
     <div class="p-4"> 
         <!-- Tabla de frecuencias y Medidas de tendencia central -->
         <div class="flex flex-auto gap-2  justify-around p-3">
-            <div class="rounded-2xl">
-                <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Tabla de frecuencias</h3>
+            <div class="">
+                <h3 class="font-bold text-lg" style="color: #3666A7;">Tabla de frecuencias</h3>
                 <table class="table-auto w-full text-center">
                     <thead class="p-4">
-                        <tr class="bg-slate-500" style="backgroud-color: #3666A7;">
+                        <tr class="bg-slate-500">
                             <th class="px-5 py-3 text-2xl text-white">Ci</th>
                             <th class="px-5 py-3 text-2xl text-white">Li-1</th>
                             <th class="px-5 py-3 text-2xl text-white">Li</th>
@@ -27,52 +27,65 @@
                     <tbody class="" >
                         {% for i in range(0, length_list) %}
                             <tr class="bg-slate-400">
-                                <td class="p-2 border-y-2 border-slate-500">{{c}}</td>
-                                <td class="p-2 border-2 border-slate-500">{{lista_Li_1[i]}}</td>
-                                <td class="p-2 border-2 border-slate-500">{{lista_Li[i]}}</td>
-                                <td class="p-2 border-2 border-slate-500">{{lista_Xi[i]}}</td>
-                                <td class="p-2 border-2 border-slate-500">{{lista_ni[i]}}</td>
-                                <td class="p-2 border-2 border-slate-500">{{lista_fi[i]}}</td>
-                                <td class="p-2 border-2 border-slate-500">{{lista_Ni[i]}}</td>
-                                <td class="p-2 border-2 border-slate-500">{{lista_Fi[i]}}</td>
-                                <td class="p-2 border-y-2 border-slate-500">{{lista_densidad[i]}}</td>
+                                <td class="p-2 border-y border-slate-500">{{c}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_Li_1[i]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_Li[i]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_Xi[i]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_ni[i]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_fi[i]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_Ni[i]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_Fi[i]}}</td>
+                                <td class="p-2 border-y border-slate-500">{{lista_densidad[i]}}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-            <!-- TABLA: medidas de tendencia central y indicadores de dispersion -->
+            <!-- Indicadores de dispersión y  gráfica -->
             <div class="">
+                <div class="">
+                    <h3 class="font-bold text-lg" style="color: #3666A7;">Polígono de frecuencias</h3>
+                    <!-- GRÁFICA DEL POLIGINO DE FRECUENCIAS -->
+                    <div class="p-1 bg-slate-400">
+                        <p class="text-left text-xs italic text-gray-500">Frec. Densidad (fi*)</p>
+                        <canvas id="myChart" width="600" height="310"></canvas>
+                        <p class="text-right text-xs italic text-gray-500">Frec. Absoluta (xi)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- TABLA: medidas de tendencia central y indicadores de dispersion -->
+            <div class="flex flex-auto justify-start gap-2 p-3 pl-8">
                 <!-- Medidas de tendencia central -->
                 <div class="pl-0 pb-5">
-                    <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Medidas de tendencia central</h3>
+                    <h3 class="font-bold text-lg" style="color: #3666A7;">Medidas de tendencia central</h3>
                 <table class="table-auto w-full text-center">
                     <thead>
-                        <tr class="bg-gray-200">
-                            <th class="px-4 py-2">Media</th>
-                            <th class="px-4 py-2">Mediana</th>
-                            <th class="px-4 py-2">Moda</th>
+                        <tr class="bg-slate-500">
+                            <th class="px-4 py-2 text-white">Media</th>
+                            <th class="px-4 py-2 text-white">Mediana</th>
+                            <th class="px-4 py-2 text-white">Moda</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% if validar_mas_modas %}
-                            <tr class="bg-blue-100">
-                                <td class="p-2">{{lista_medidas_tendencia[0]}}</td>
-                                <td class="p-2">{{lista_medidas_tendencia[1]}}</td>
-                                <td class="p-2">{{lista_medidas_tendencia[2][i]}}</td>
+                            <tr class="bg-slate-400">
+                                <td class="p-2 border-y border-slate-500">{{lista_medidas_tendencia[0]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_medidas_tendencia[1]}}</td>
+                                <td class="p-2 border-y border-slate-500">{{lista_medidas_tendencia[2][0]}}</td>
                             </tr>
                             {% for i in range(1, num_modas)  %}
-                                    <tr class="bg-blue-100">
-                                        <td class="p-2"></td>
-                                        <td class="p-2"></td>
-                                        <td class="p-2">{{lista_medidas_tendencia[2][i]}}</td>
+                                    <tr class="bg-slate-400">
+                                        <td class=""></td>
+                                        <td class=""></td>
+                                        <td class="p-2 border-y border-slate-500">{{lista_medidas_tendencia[2][i]}}</td>
                                     </tr>
                             {% endfor %}
                         {% else %}
-                            <tr class="bg-blue-100">
-                                <td class="p-2">{{lista_medidas_tendencia[0]}}</td>
-                                <td class="p-2">{{lista_medidas_tendencia[1]}}</td>
-                                <td class="p-2">{{lista_medidas_tendencia[2][0]}}</td>
+                            <tr class="bg-slate-400">
+                                <td class="p-2 border-y border-slate-500">{{lista_medidas_tendencia[0]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_medidas_tendencia[1]}}</td>
+                                <td class="p-2 border-y border-slate-500">{{lista_medidas_tendencia[2][0]}}</td>
                             </tr>
                         {% endif %}
                     </tbody>
@@ -80,38 +93,27 @@
                 </div>
                 <!-- Indicadores de dispersion  -->
                 <div class="">
-                    <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Indicadores de dispersión</h3>
+                    <h3 class="font-bold text-lg" style="color: #3666A7;">Indicadores de dispersión</h3>
                     <table class="table-auto w-full text-center">
                         <thead>
-                            <tr class="bg-gray-200">
-                                <th class="px-4 py-2">Varianza</th>
-                                <th class="px-4 py-2">Desviación Estandar</th>
-                                <th class="px-4 py-2">Coef. Variación</th>
+                            <tr class="bg-slate-500">
+                                <th class="px-4 py-2 text-white">Varianza</th>
+                                <th class="px-4 py-2 text-white">Desviación Estandar</th>
+                                <th class="px-4 py-2 text-white">Coef. Variación</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="border px-4 py-2">{{ lista_indicadores_dispersion[0] }}</td>
-                                <td class="border px-4 py-2">{{ lista_indicadores_dispersion[1] }}</td>
-                                <td class="border px-4 py-2">{{ lista_indicadores_dispersion[2] }}</td>
+                            <tr class="bg-slate-400">
+                                <td class="p-2 border-y border-slate-500">{{ lista_indicadores_dispersion[0] }}</td>
+                                <td class="p-2 border border-slate-500">{{ lista_indicadores_dispersion[1] }}</td>
+                                <td class="p-2 border-y border-slate-500">{{ lista_indicadores_dispersion[2] }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-        <!-- Indicadores de dispersión y  gráfica -->
-        <div class="flex flex-auto gap-2  justify-around p-3">
-            <div class="p-2">
-                <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Polígono de frecuencias</h3>
-                <!-- GRÁFICA DEL POLIGINO DE FRECUENCIAS -->
-                <div class="p-1">
-                    <p class="text-left text-xs italic text-gray-500">Frec. Densidad (fi*)</p>
-                    <canvas id="myChart" width="600" height="400"></canvas>
-                    <p class="text-right text-xs italic text-gray-500">Frec. Absoluta (xi)</p>
-                </div>
-            </div>
-        </div>
+
+
     </div>
 </div>
 <!-- Script para crear el gráfico -->

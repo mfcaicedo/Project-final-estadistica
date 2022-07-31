@@ -4,16 +4,16 @@
 {% block body %}
 
 
-<div class="contenedor bg-slate-300">
-    <h1 class="text-3xl text-center font-bold m-2 p-2 text-blue-400">Resultados datos discretos</h1>
+<div class="contenedor bg-slate-300 w-full">
+    <h1 class="text-3xl text-center font-bold m-2 p-2 uppercase" style="color: #3666A7;">Resultados datos discretos</h1>
     <div class="p-4">
         <!-- Tabla de frecuencias y Medidas de tendencia central -->
         <div class="flex flex-auto gap-2  justify-around p-3">
             <div class="">
-                <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Tabla de frecuencias</h3>
+                <h3 class="font-bold text-xl" style="color: #3666A7;">Tabla de frecuencias</h3>
                 <table class="table-auto w-full text-center">
                     <thead class="p-4">
-                        <tr class="" style="background-color: #3666A7;">
+                        <tr class="bg-slate-500">
                             <th class="px-5 py-3 text-2xl text-white">Valor (Xi)</th>
                             <th class="px-5 py-3 text-2xl text-white">Frec. Absoluta (ni)</th>
                             <th class="px-5 py-3 text-2xl text-white">Frec. Relativa (fi)</th>
@@ -23,12 +23,12 @@
                     </thead>
                     <tbody class="" >
                         {% for i in range(0, length_list) %}
-                            <tr class="bg-blue-100">
-                                <td class="p-2">{{lista_elem_dis[i]}}</td>
-                                <td class="p-2">{{lista_frec_abs[i]}}</td>
-                                <td class="p-2">{{lista_frec_rel[i]}}</td>
-                                <td class="p-2">{{lista_Ni_dis[i]}}</td>
-                                <td class="p-2">{{lista_Fi_dis[i]}}</td>
+                            <tr class="bg-slate-400">
+                                <td class="p-2 border-y border-slate-500">{{lista_elem_dis[i]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_frec_abs[i]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_frec_rel[i]}}</td>
+                                <td class="p-2 border border-slate-500">{{lista_Ni_dis[i]}}</td>
+                                <td class="p-2 border-y border-slate-500">{{lista_Fi_dis[i]}}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -41,32 +41,32 @@
         <div class="flex flex-auto gap-2  justify-around p-3">
 
             <div class="">
-                <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Medidas de tendencia central</h3>
-                <table class="table-auto w-full">
+                <h3 class="font-bold text-lg" style="color: #3666A7;">Medidas de tendencia central</h3>
+                <table class="table-auto w-full text-center">
                     <thead>
-                        <tr class="bg-gray-200">
-                            <th class="px-4 py-2">Media</th>
-                            <th class="px-4 py-2">Mediana</th>
-                            <th class="px-4 py-2">Moda</th>
+                        <tr class="bg-slate-500">
+                            <th class="px-4 text-white py-2">Media</th>
+                            <th class="px-4 text-white py-2">Mediana</th>
+                            <th class="px-4 text-white py-2 border-x border-slate-500">Moda</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             {% if validar_mas_modas %}
-                                <tr class="bg-blue-100">
-                                    <td class="p-2">{{lista_medidas_tendencia[0]}}</td>
-                                    <td class="p-2">{{lista_medidas_tendencia[1]}}</td>
-                                    <td class="p-2">{{lista_medidas_tendencia[2][i]}}</td>
+                                <tr class="bg-slate-400">
+                                    <td class="p-2 border-y border-slate-500">{{lista_medidas_tendencia[0]}}</td>
+                                    <td class="p-2 border border-slate-500">{{lista_medidas_tendencia[1]}}</td>
+                                    <td class="p-2 border border-slate-500">{{lista_medidas_tendencia[2][0]}}</td>
                                 </tr>
                                 {% for i in range(1, num_modas)  %}
-                                        <tr class="bg-blue-100">
+                                        <tr class="bg-slate-400">
                                             <td class="p-2"></td>
                                             <td class="p-2"></td>
-                                            <td class="p-2">{{lista_medidas_tendencia[2][i]}}</td>
+                                            <td class="p-2 border border-slate-500">{{lista_medidas_tendencia[2][i]}}</td>
                                         </tr>
                                 {% endfor %}
                             {% else %}
-                                <tr class="bg-blue-100">
+                                <tr class="bg-slate-400">
                                     <td class="p-2">{{lista_medidas_tendencia[0]}}</td>
                                     <td class="p-2">{{lista_medidas_tendencia[1]}}</td>
                                     <td class="p-2">{{lista_medidas_tendencia[2][0]}}</td>
@@ -77,31 +77,31 @@
                 </table>
             </div>
             <div class="">
-                <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Indicadores de dispersión</h3>
-                <table class="table-auto w-full">
+                <h3 class="font-bold text-lg" style="color: #3666A7;">Indicadores de dispersión</h3>
+                <table class="table-auto w-full text-center">
                     <thead>
-                        <tr class="bg-gray-200">
-                            <th class="px-4 py-2">Varianza</th>
-                            <th class="px-4 py-2">Desviación Estandar</th>
-                            <th class="px-4 py-2">Coef. Variación</th>
+                        <tr class="bg-slate-500">
+                            <th class="px-4 py-2 text-white">Varianza</th>
+                            <th class="px-4 py-2 text-white">Desviación Estandar</th>
+                            <th class="px-4 py-2 text-white">Coef. Variación</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <tr>
-                                <td class="border px-4 py-2">{{ lista_indicadores_dispersion[0] }}</td>
-                                <td class="border px-4 py-2">{{ lista_indicadores_dispersion[1] }}</td>
-                                <td class="border px-4 py-2">{{ lista_indicadores_dispersion[2] }}</td>
+                            <tr class="bg-slate-400">
+                                <td class="border-y border-slate-500  px-4 py-2">{{ lista_indicadores_dispersion[0] }}</td>
+                                <td class="border border-slate-500 px-4 py-2">{{ lista_indicadores_dispersion[1] }}</td>
+                                <td class="border-y border-slate-500 px-4 py-2">{{ lista_indicadores_dispersion[2] }}</td>
                             </tr>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="p-2 w-9/12">
-            <h3 class="uppercase font-bold text-lg" style="color: #3666A7;">Diagrama de frecuencia</h3>
+        <div class="p-8 pt-3 w-9/12 ">
+            <h3 class="font-bold text-lg" style="color: #3666A7;">Diagrama de frecuencia</h3>
             <!-- GRÁFICA DEL POLIGINO DE FRECUENCIAS -->
-            <div class="p-1">
+            <div class="p-1 bg-slate-400">
                 <p class="text-left text-xs italic text-gray-500">Frec. Absoluta (ni)</p>
                 <canvas id="myChart" width="100" height="50"></canvas>
                 <p class="text-right text-xs italic text-gray-500">Valor observado (xi)</p>
