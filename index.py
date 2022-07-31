@@ -1,12 +1,9 @@
 from cmath import sqrt
 from operator import contains
-from flask import Blueprint, Flask, render_template, request, redirect, url_for
+from flask import Blueprint, Flask, render_template, request, redirect
 from flask_assets import Bundle, Environment
 from math import ceil, log
 import math
-from collections import Counter
-
-from numpy import integer
 
 app = Flask(__name__)
 
@@ -18,19 +15,21 @@ css.build()
 
 @app.route("/")
 def index():
-    # return "<h1>Hola mundo Erika</h1>"
     return render_template('index.html')
 
-@app.route('/result')
-def resultados():
-    return render_template('result.html')
+@app.route('/ayuda')
+def ayuda():
+    return render_template('help.html')
+
+@app.route('/us')
+def nosotros():
+    return render_template('us.html')
 
 @app.route('/procesar_datos', methods=['POST'])
 def procesar_datos():
     #AQUI RECUPERO LA INFORMACIÓN QUE SE MANDA DESDE EL FORMULARIO QUE SE ENCUENTRA EN EL index.html
     #AQUI VA EL CODIGO PARA PROCESAR LOS DATOS	 
     response = request.form
-    print(f"response: {response}")
     array_data, lista_Li_1, lista_Li, lista_Xi =  [],[],[],[]
     lista_ni, lista_fi, lista_Fi, lista_Ni, lista_densidad = [],[],[],[],[]
     #listas para los datos discretos
@@ -160,6 +159,14 @@ def procesar_datos():
 
 #FUNCIONES DE USO GENERAL
 def mayor_de_arreglo(arreglo):
+    """_summary_ = Devuelve el mayor elemento de un arreglo
+
+    Args:
+        arreglo (float, int, double): Arreglo de valores numericos
+
+    Returns:
+        float, int, double: El mayor elemento del arreglo
+    """
     #El numero mayor se inicia suponiendo que el primer numero del arreglo es el mayor
     mayor = arreglo[0]
     #Recorrer y buscar
@@ -169,6 +176,14 @@ def mayor_de_arreglo(arreglo):
     return mayor
 
 def menor_de_arreglo(arreglo):
+    """_summary_ Devuelve el menor elemento de un arreglo
+
+    Args:
+        arreglo (int, float, double): Arreglo de valores numericos
+
+    Returns:
+        int, float, double: El menor elemento del arreglo
+    """
     #El numero menor se inicia suponiendo que el primer numero del arreglo es el menor
     menor = arreglo[0]
     #Recorrer y buscar
@@ -179,6 +194,16 @@ def menor_de_arreglo(arreglo):
 
 #FUNCIONES PARA DATOS CONTINUOS
 def llenar_listas(lista_Li_1, lista_Li, lista_Xi, numMenor,c,m):
+    """_summary_ Llena las listas de datos li-1, li, xi
+
+    Args:
+        lista_Li_1 (float): lista de datos li-1
+        lista_Li (float): lista de datos li
+        lista_Xi (float): lista de datos xi
+        numMenor (float): numero menor de los datos
+        c (float): ancho
+        m (int): numero de intervalos
+    """
     anterior = numMenor
     for i in range(m):        
         lista_Li_1.append(round(anterior, 3))
@@ -189,6 +214,17 @@ def llenar_listas(lista_Li_1, lista_Li, lista_Xi, numMenor,c,m):
         anterior=siguiente
         
 def  llenar_listas_frec(float_array_data, lista_Li_1, lista_Li, lista_ni, lista_fi, m, n):
+    """_summary_ Llena las listas de datos ni y fi
+
+    Args:
+        float_array_data (float): arreglo de datos traidos desde la vista 
+        lista_Li_1 (float): lista de datos li-1
+        lista_Li (float): lista de datos li
+        lista_ni (float): lista de datos ni a calcular
+        lista_fi (float): lista de datos fi a calcular
+        m (int): numero de intervalos
+        n (int): numero de datos
+    """
     cont = 0
     fi = 0
     for j in range(m):
@@ -201,6 +237,14 @@ def  llenar_listas_frec(float_array_data, lista_Li_1, lista_Li, lista_ni, lista_
         lista_fi.append(fi)   
         cont = 0 
 def llenar_lista_Ni(lista_ni, lista_Ni, m):
+    """_summary_ Llena las listas de datos Ni
+
+    Args:
+        float_array_data (float): arreglo de datos traidos desde la vista 
+        lista_ni (float): lista de datos ni
+        lista_Ni (float): lista de datos ni a calcular
+        m (int): numero de intervalos
+    """
     lista_Ni.append(lista_ni[0])
     for i in range(m-1):
         niAnterior = lista_Ni[i]
@@ -209,6 +253,13 @@ def llenar_lista_Ni(lista_ni, lista_Ni, m):
         lista_Ni.append(round(nuevoValor, 3))
         
 def llenar_lista_Fi(lista_fi, lista_Fi, m):
+    """_summary_ Llena las listas de datos Fi
+
+    Args:
+        lista_fi (float): lista de datos fi
+        lista_Fi (float): lista de datos fi a calcular
+        m (int): numero de intervalos
+    """
     lista_Fi.append(lista_fi[0])
     for i in range(m-1):
         niAnterior = lista_Fi[i]
@@ -217,11 +268,28 @@ def llenar_lista_Fi(lista_fi, lista_Fi, m):
         lista_Fi.append(round(nuevoValor, 3))
 
 def llenar_lista_densidad(lista_fi, lista_densidad, m, c):
+    """_summary_ Llena las listas de datos la función empirica de densidad
+
+    Args:
+        lista_fi (float): lista de datos fi
+        lista_densidad (float): lista de datos la función empirica de densidad a calcular
+        m (int): numero de intervalos
+        c (float): ancho
+    """
     for i in range(m):
         fid = (lista_fi[i]/c)*100
         lista_densidad.append(round(fid,3))
         
 def media_datos_continuos(diccionarioDatContinuos, n):
+    """_summary_ Calcula la media de los datos continuos
+
+    Args:
+        diccionarioDatContinuos (float): diccionario de datos continuos
+        n (int): numero de datos
+
+    Returns:
+        float: media de los datos
+    """
     media = 0
     for key in diccionarioDatContinuos:
         media += (diccionarioDatContinuos[key][2] * diccionarioDatContinuos[key][3])/n

@@ -1,0 +1,29 @@
+{% extends './layout.html' %}
+{% block title %}Estadistica{% endblock %}
+
+{% block body %}
+<div class="bg-slate-300">
+    <div class="p-3 md:pl-48 pb-20 md:pr-48 md:pb-44">
+        <div class="contenedor bg-slate-300 m-0 pl-10 md:pl-0">
+            <div class="contenedor-form mb-6 bg-slate-800 rounded-2xl border-collapse p-3">
+                <div class="w-auto px-3 mb-6 md:mb-0">
+                <h3 class="text-2xl font-bold mb-2 font-serif text-white text-center">Estadistica descriptiva</h3>
+                <h4 class="text-xl font-bold mb-2 font-serif text-white">Funcionalidad del programa</h4>
+                    <p class="text-justify text-white">
+                        Este programa aplica las distribuciones unidimensionales de frecuencia, permitiendo, 
+                        mediante la utilización de interfaces gráficas que el usuario pueda seleccionar 
+                        el tipo de variable requerida (continua o discreta) y a partir de esta 
+                        ingresar un número determinado de datos con los cuales el programa mostrará todos 
+                        los cálculos relacionados a las frecuencias absolutas, relativas y acumuladas, el 
+                        cálculo de las medidas de tendencia central (media, mediana y moda) y los indicadores 
+                        de dispersión (varianza, desviación estándar y coeficiente de variación). Cuando los datos
+                        son continuos genera la gráfica correspondiente del poligono de frecuencias y si los datos 
+                        son discretos genera la gráfica de frecuencias.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
