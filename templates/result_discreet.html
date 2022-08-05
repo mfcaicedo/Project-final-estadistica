@@ -38,7 +38,7 @@
         </div>
 
         <!-- Indicadores de dispersión y  gráfica -->
-        <div class="flex flex-auto gap-2  justify-around p-3">
+        <div class="flex flex-auto gap-2  justify-start p-4 pl-7 ">
 
             <div class="">
                 <h3 class="font-bold text-lg" style="color: #3666A7;">Medidas de tendencia central</h3>
@@ -67,9 +67,9 @@
                                 {% endfor %}
                             {% else %}
                                 <tr class="bg-slate-400">
-                                    <td class="p-2">{{lista_medidas_tendencia[0]}}</td>
-                                    <td class="p-2">{{lista_medidas_tendencia[1]}}</td>
-                                    <td class="p-2">{{lista_medidas_tendencia[2][0]}}</td>
+                                    <td class="p-2 border-y border-slate-500">{{lista_medidas_tendencia[0]}}</td>
+                                    <td class="p-2 border border-slate-500">{{lista_medidas_tendencia[1]}}</td>
+                                    <td class="p-2 border-y border-slate-500">{{lista_medidas_tendencia[2][0]}}</td>
                                 </tr>
                             {% endif %} 
                         </tr>

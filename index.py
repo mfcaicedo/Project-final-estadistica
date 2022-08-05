@@ -114,12 +114,23 @@ def procesar_datos():
         lista_medidas_tendencia = [round(media, 3), round(mediana, 3),lista_modas]
         lista_indicadores_dispersion = [round(varianza, 3), round(desviacionEstandar, 3), round(coef_variacion, 3)]
         
+        #lista para la la ojiva 
+        lista_x_ojiva = []
+        lista_x_ojiva.append(lista_Li_1[0])
+        for i in lista_Li:
+            lista_x_ojiva.append(i)
+        lista_y_ojiva = []
+        lista_y_ojiva.append(0)
+        for i in lista_Fi:
+            lista_y_ojiva.append(i*100)
+        
         return render_template('result_continuous.html', lista_Li_1=lista_Li_1, lista_Li=lista_Li, 
                             lista_Xi=lista_Xi, lista_ni=lista_ni, lista_fi=lista_fi, 
                             lista_Ni=lista_Ni, lista_Fi=lista_Fi, lista_densidad=lista_densidad,
                             lista_medidas_tendencia=lista_medidas_tendencia, 
                             lista_indicadores_dispersion=lista_indicadores_dispersion,
-                            c=c, length_list=length_list, validar_mas_modas=validar_mas_modas, num_modas=len(lista_modas))
+                            c=c, length_list=length_list, validar_mas_modas=validar_mas_modas,
+                            num_modas=len(lista_modas), lista_x_ojiva=lista_x_ojiva, lista_y_ojiva=lista_y_ojiva)
     
     else:
         #VALORES DISCRETOS    
