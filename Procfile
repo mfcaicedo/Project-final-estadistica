@@ -1,1 +1,1 @@
-web: gunicorn wsgi: proyecto-estadistic
+web: gunicorn app:app
