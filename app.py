@@ -2,7 +2,7 @@ from cmath import sqrt
 from operator import contains
 from flask import Blueprint, Flask, render_template, request, redirect
 from flask_assets import Bundle, Environment
-from math import ceil, log
+from math import log
 import math
 
 app = Flask(__name__)
